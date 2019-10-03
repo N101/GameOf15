@@ -1,0 +1,232 @@
+//package sample;
+//
+//import javafx.application.Application;
+//import javafx.scene.Node;
+//import javafx.scene.Scene;
+//import javafx.scene.control.Button;
+//import javafx.scene.control.Label;
+//import javafx.scene.layout.BorderPane;
+//import javafx.scene.layout.GridPane;
+//import javafx.stage.Stage;
+//import javafx.css.*;
+//import java.util.*;
+//
+//public class Main extends Application {
+//    private Stage window;
+//    HashMap<Integer, Btn> map = new HashMap<>();
+//    boolean gameOver = false;
+//    private int gridW = 4;
+//    int[] ary = new int[16];
+//    String MoveDir = "";
+//    private Btn[] tiles;
+//
+//    public static void main(String[] args) {launch(args);}
+//
+//    @Override
+//    public void start(Stage primaryStage) throws Exception {
+//        window = primaryStage;
+//        window.setTitle("Game of 15");
+//        Scene root = createTheScene();
+////        newGame();
+//        window.setScene(root);
+//        window.show();
+//    }
+//
+//    public void newGame() {
+//        do {  // continue shuffling the board until its a solvable design
+////            setBoard();     // equal to gamePane
+////            printGrid();
+//            shuffleStart();
+////            printGrid();
+//
+//        } while (!isSolvable());
+//        gameOver = false;
+//
+////        startTimer();
+//
+//    }
+//
+//    private Scene createTheScene() {
+//        BorderPane bp = new BorderPane();
+//        bp.setId("Game15");
+//        bp.setTop(new Label("Game of 15"));
+//        bp.setCenter(gamePane());
+//        Scene windowScene = new Scene(bp, 600, 600);
+//        return windowScene;
+//    }
+//
+//    private Node gamePane() {
+//        GridPane grid = new GridPane();
+//        grid.setId("GameField15");
+//
+//        int count = 1;
+//        int counter = 16;
+//        Scene gameScene = new Scene(grid, 400, 400);
+//
+//        for (int i = 1; i <= 4; i++) {
+//            for (int j = 1; j <= 4; j++) {
+////                int x = j;
+////                int y = i;
+//                Btn btn = new Btn(count, j, i, new Button("" + count));
+//                String a = i + "" + j;
+//                map.put(Integer.parseInt(a) , btn);
+//                btn.button.setMinSize(100, 100);
+//                btn.button.setOnAction(e -> {
+////                    System.out.println(maps.get(btn.getId()).getX());
+////                    System.out.println(maps.get(btn.getId()).getY());
+////                    System.out.println("Button Clicked");
+//                    if (isMoveLegal(btn, Integer.parseInt(a)) == true) {
+//                        move(btn);
+//                    }
+//                });
+//                count++;
+//                counter--;
+//
+//                grid.add(btn.button, j, i);
+//            }
+//        }
+//
+//        return grid;
+//    }
+//
+//    private void shuffleStart() {
+//        List keys = new ArrayList(map.keySet());
+//        Collections.shuffle(keys);
+//        for (Object o : keys) {
+//            map.get(o);
+//        }
+//    }
+//
+//
+//    private boolean isSolvable() {
+//        int Inversions = 0;
+//        int blankPos = 5 - map.get(44).getYs() ;
+//        for (int a=11; a<45; a=a+10) {
+//            for (int b = a; b<a+4; b++) {
+//                if(map.get(a).getID() == 16 || map.get(b).getID() == 16) { }
+//                else if(map.get(a).getID() > map.get(b).getID()) { Inversions++; }
+//            }
+//        }
+//
+//        if (gridW % 2 == 0) {
+//            return (Inversions % 2 == 0) == (blankPos % 2 != 0);
+//        } else {
+//            return Inversions % 2 == 0;
+//        }
+//    }
+//
+//    private boolean isMoveLegal(Btn butn, int x) {
+//        boolean checker = false;
+//        if (map.get(x).getYs() == 1) {
+//            System.out.println("cannot check above");
+//            if (checkDown(butn, x) == true || checkRight(butn, x) == true || checkLeft(butn, x) == true) {
+//                checker = true;
+//            }
+//        } else if (map.get(butn.getID()).getYs() == 4) {
+//            System.out.println("cannot check below");
+//            if (checkUp(butn, x) == true || checkRight(butn, x) == true || checkLeft(butn, x) == true) {
+//                checker = true;
+//            }
+//        } else if (map.get(butn.getID()).getXs() == 1) {
+//            System.out.println("cannot check left");
+//            if (checkDown(butn, x) == true || checkRight(butn, x) == true || checkUp(butn, x) == true) {
+//                checker = true;
+//            }
+//        } else if (map.get(butn.getID()).getXs() == 4) {
+//            System.out.println("cannot check right");
+//            if (checkDown(butn, x) == true || checkUp(butn, x) == true || checkLeft(butn, x) == true) {
+//                checker = true;
+//            }
+//        } else {
+//            if (checkDown(butn, x) == true || checkRight(butn, x) == true || checkLeft(butn, x) == true || checkUp(butn, x) == true) {
+//                checker = true;
+//            }
+//        }
+//        System.out.println(MoveDir);
+//        return checker;
+//    }
+//
+//    private boolean checkUp(Btn butn, int a) {
+//        if (map.get(a).getYs() != 1 && map.get(a-10).getID() == 16) {
+//            MoveDir = "Up";
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    private boolean checkDown(Btn butn, int a) {
+//        if (map.get(a).getYs() != 1 && map.get(a+10).getID() == 16) {
+//            MoveDir = "Down";
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    private boolean checkRight(Btn butn, int a) {
+//        if (map.get(a).getYs() != 1 && map.get(a+1).getID() == 16) {
+//            MoveDir = "Right";
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    private boolean checkLeft(Btn butn, int a) {
+//        if (map.get(a).getYs() != 1 && map.get(a-1).getID() == 16) {
+//            MoveDir = "Left";
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//
+//    private void move(Btn btn) {
+//        if (MoveDir.equals("Up")) {
+//            int tempID = map.get((btn.getYs()-1)* 4 - (4-btn.getXs())).getID();
+//            map.get((btn.getYs()-1)* 4 - (4-btn.getXs())).setID(map.get(btn.getID()).getID());
+//            map.get(btn.getID()).setID(tempID);
+//            btn.button.setText("" + map.get(btn.getID()).getID());
+//
+//        } else if (MoveDir.equals("Ri")) {
+//            map.get((btn.getYs()+1)*4 - (4-btn.getXs())).button.setText("" + map.get(btn.getID()).getID());
+//            map.get(btn.getID()).button.setText("" + map.get((btn.getYs()+1)*4 - (4-btn.getXs())).getID());
+//
+//            int tempID = map.get(btn.getID()).getID();
+//            map.get(btn.getID()).setID(16);
+//            map.get((btn.getYs()+1)*4 - (4-btn.getXs())).setID(tempID);
+//            System.out.println(map.get(btn.getID()).getID());
+//            System.out.println(map.get((btn.getYs()+1)* 4 - (4-btn.getXs())).getID());
+//
+//            map.get(btn.getID()).setYs(map.get(btn.getID()).getYs()+1);
+//            map.get((btn.getYs()+1)* 4 - (4-btn.getXs())).setYs(map.get((btn.getYs()+1)* 4 - (4-btn.getXs())).getYs()-1);
+//        } else if (MoveDir.equals("Down")){
+//            switchID(map.get(btn.getID()).getID(), map.get(getDown(btn)).getID());
+//            switchTitle(map.get(btn.getID()).getID(), map.get(getDown(btn)).getID());
+//            System.out.println(btn.getID());
+//            System.out.println(map.get(btn.getID()).getID());
+//        } else if (MoveDir.equals("Left")) {
+//
+//        }
+//    }
+//
+//    private void switchID(int ID1, int ID2) {
+//        int tempID = map.get(ID1).getID();
+//        map.get(ID1).setID(map.get(ID2).getID());
+//        map.get(ID2).setID(tempID);
+//    }
+//
+//    private void switchTitle(int id1, int id2) {
+//        String tmp = map.get(id1).button.getText();
+//        map.get(id1).button.setText(map.get(id2).button.getText());
+//        map.get(id2).button.setText(tmp);
+//    }
+//
+//    private int getDown(Btn btn) { return (btn.getYs()+1)*4 - (4-btn.getXs()); }
+//    private int getUp(Btn btn) { return (btn.getYs()-1)*4 - (4-btn.getXs()); }
+//    private int getRight(Btn btn) { return (btn.getYs()* 4 - (4-btn.getXs()))+1; }
+//    private int getLeft(Btn btn) { return (btn.getYs()* 4 - (4-btn.getXs()))-1; }
+//
+//
+//}
